@@ -25,7 +25,7 @@ public class DistanceBasedMatchMaker implements Matchmaker {
                 Comparator.comparingDouble(individual -> individual.computeDistance(target)))
                 .computeDistance(target);
 
-        // 最短的路徑若相同，找 id 更小的 -----------------------------------------｢
+        // 最遠的路徑若相同，找 id 更小的 -----------------------------------------｢
         return Collections.min(individuals.stream()
                 .filter(individual -> individual.computeDistance(target).equals(distance))
                 .toList(), Comparator.comparingInt(Individual::getId));

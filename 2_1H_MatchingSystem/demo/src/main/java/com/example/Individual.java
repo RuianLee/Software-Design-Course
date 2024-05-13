@@ -4,69 +4,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Individual {
-    int id;
-    String gender;
-    int age;
-    String intro;
-    String habits;
-    int[] coord;
-    Matchmaker matchmaker;
+    private int id;
+    private String name;
+    private String gender;
+    private int age;
+    private String intro;
+    private String habits;
+    private Crood coord;
+    private MatchmakingStrategy matchmaker;
+    private Individual bestMatch;
 
-    /**
-     * 計算與對象之間的距離
-     * 
-     * @param target 傳入比對的對象
-     * @return 與對象之間的距離
-     */
-    public Double computeDistance(Individual target) {
-
-        return Math.sqrt(Math.pow(target.coord[1] - this.coord[1], 2)
-                - Math.pow(target.coord[0] - this.coord[0], 2));
-    }
-
-    /**
-     * 回傳相符合的興趣數量
-     * 
-     * @param target 傳入比對的對象
-     * @return 與對象之間相符的興趣數量
-     */
-    public int compareHabbits(Individual target) {
-
-        return (int) this.getHabitList().stream().filter(target.getHabitList()::contains).count();
-    }
-
-    /**
-     * 設置配對器
-     * 
-     * @param matchmaker 配對器
-     */
-    public void setMatchmaker(Matchmaker matchmaker) {
-        this.matchmaker = matchmaker;
-    }
-
-    /**
-     * 進行對象的配對
-     * 
-     * @param individuals 可配對的對象們
-     * @return 回傳配對到的對象
-     */
-    public Individual matchMake(List<Individual> individuals) {
-        return matchmaker.matchMake(this, individuals);
-    }
-
-    /**
-     * 進行對象的反向配對
-     * 
-     * @param individuals 可配對的對象們
-     * @return 回傳配對到的對象
-     */
-    public Individual reverMatchMake(List<Individual> individuals) {
-        return matchmaker.reverseMatchMake(this, individuals);
+    public void match(Individual match) {
+        this.bestMatch = match;
     }
 
     // Constuctor --------------------------------------------------------------
-    public Individual(int id, String gender, int age, String intro, String habits, int[] coord) {
+    public Individual(int id, String name, String gender, int age, String intro, String habits, Crood coord) {
         this.id = id;
+        this.name = name;
         this.gender = gender;
         this.age = age;
         this.intro = intro;
@@ -86,6 +41,14 @@ public class Individual {
         }
 
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(String name) {
+        this.name = name;
     }
 
     public String getGender() {
@@ -139,11 +102,31 @@ public class Individual {
         this.habits = habits;
     }
 
-    public int[] getCoord() {
-        return coord;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCoord(int[] coord) {
+    public Crood getCoord() {
+        return this.coord;
+    }
+
+    public void setCoord(Crood coord) {
         this.coord = coord;
+    }
+
+    public MatchmakingStrategy getMatchmaker() {
+        return this.matchmaker;
+    }
+
+    public void setMatchmaker(MatchmakingStrategy matchmaker) {
+        this.matchmaker = matchmaker;
+    }
+
+    public Individual getBestMatch() {
+        return this.bestMatch;
+    }
+
+    public void setBestMatch(Individual bestMatch) {
+        this.bestMatch = bestMatch;
     }
 }

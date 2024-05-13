@@ -25,7 +25,7 @@ public class HabitBasedMatchMaker implements Matchmaker {
                 Comparator.comparingInt(individual -> individual.compareHabbits(target)))
                 .compareHabbits(target);
 
-        // 興趣符合最多數量相同時，找 id 更小的 -----------------------------------
+        // 興趣符合最少數量相同時，找 id 更小的 -----------------------------------
         return Collections.min(individuals.stream()
                 .filter(individual -> individual.compareHabbits(target) == matchHabits)
                 .toList(), Comparator.comparingInt(Individual::getId));
